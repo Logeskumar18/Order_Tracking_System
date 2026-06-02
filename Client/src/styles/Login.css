@@ -1,0 +1,235 @@
+:root {
+  --login-navy: #0f172a;
+  --login-ink: #1f2937;
+  --login-muted: #64748b;
+  --login-border: #d9e1ef;
+  --user-a: #0b7a75;
+  --user-b: #16a34a;
+  --admin-a: #0f4c81;
+  --admin-b: #1d4ed8;
+}
+
+.login-page {
+  min-height: calc(100vh - 180px);
+  display: grid;
+  place-items: center;
+  padding: 48px 16px;
+}
+
+.login-user {
+  background: radial-gradient(circle at 15% 20%, rgba(11, 122, 117, 0.22), transparent 35%),
+    radial-gradient(circle at 80% 80%, rgba(22, 163, 74, 0.2), transparent 35%),
+    #f5fbfa;
+}
+
+.login-admin {
+  background: radial-gradient(circle at 20% 15%, rgba(15, 76, 129, 0.25), transparent 35%),
+    radial-gradient(circle at 85% 85%, rgba(29, 78, 216, 0.22), transparent 35%),
+    #f5f8ff;
+}
+
+.login-panel {
+  width: 100%;
+  max-width: 460px;
+  background: #ffffff;
+  border: 1px solid var(--login-border);
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+}
+
+.login-panel--wide {
+  max-width: 700px;
+}
+
+.login-badge {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.login-user .login-badge {
+  color: #0d9488;
+  background: rgba(13, 148, 136, 0.12);
+}
+
+.login-admin .login-badge {
+  color: #1d4ed8;
+  background: rgba(29, 78, 216, 0.12);
+}
+
+.login-panel h1 {
+  margin: 0;
+  color: var(--login-navy);
+  font-size: 30px;
+  line-height: 1.2;
+}
+
+.login-subtitle {
+  margin-top: 10px;
+  margin-bottom: 22px;
+  color: var(--login-muted);
+  line-height: 1.5;
+}
+
+.login-form {
+  display: grid;
+  gap: 10px;
+}
+
+.register-form {
+  gap: 12px;
+}
+
+.login-form label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--login-ink);
+}
+
+.login-form input {
+  width: 100%;
+  height: 44px;
+  border-radius: 10px;
+  border: 1px solid var(--login-border);
+  padding: 0 12px;
+  outline: none;
+  font-size: 15px;
+}
+
+.login-form input:focus {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.25);
+}
+
+.login-form textarea {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--login-border);
+  padding: 12px;
+  outline: none;
+  font-size: 15px;
+  resize: vertical;
+  min-height: 92px;
+  font-family: inherit;
+}
+
+.login-form textarea:focus {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.25);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.form-grid > div {
+  display: grid;
+  gap: 10px;
+}
+
+.form-alert {
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin: 14px 0 18px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.form-alert.success {
+  background: rgba(22, 163, 74, 0.12);
+  color: #166534;
+  border: 1px solid rgba(22, 163, 74, 0.2);
+}
+
+.form-alert.error {
+  background: rgba(220, 38, 38, 0.12);
+  color: #991b1b;
+  border: 1px solid rgba(220, 38, 38, 0.2);
+}
+
+.login-row {
+  margin-top: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.checkbox-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--login-muted);
+}
+
+.checkbox-wrap input {
+  width: 16px;
+  height: 16px;
+}
+
+.helper-link {
+  font-size: 14px;
+  color: #2563eb;
+}
+
+.login-btn {
+  margin-top: 8px;
+  border: none;
+  height: 46px;
+  border-radius: 10px;
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.login-user .login-btn {
+  background: linear-gradient(135deg, var(--user-a), var(--user-b));
+}
+
+.login-admin .login-btn {
+  background: linear-gradient(135deg, var(--admin-a), var(--admin-b));
+}
+
+.login-btn:disabled {
+  opacity: 0.75;
+  cursor: wait;
+}
+
+.login-switch {
+  margin-top: 16px;
+  font-size: 14px;
+  color: var(--login-muted);
+}
+
+.login-switch a {
+  color: #2563eb;
+  font-weight: 600;
+}
+
+@media (max-width: 520px) {
+  .login-panel {
+    padding: 20px;
+  }
+
+  .login-panel h1 {
+    font-size: 25px;
+  }
+
+  .login-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
