@@ -6,6 +6,10 @@ import UserLogin from './pages/UserLogin'
 import AdminLogin from './pages/AdminLogin'
 import UserHome from './pages/UserHome'
 import UserRegister from './pages/UserRegister'
+import AdminDashboard from './pages/AdminDashboard'
+import CreateOrder from './pages/CreateOrder'
+import OrderList from './pages/OrderList'
+import OrderDetails from './pages/OrderDetails'
 
 
 function App() {
@@ -18,10 +22,10 @@ function App() {
           <Route path="/user-login" element={<UserLogin />} />
           <Route path="/user-register" element={<UserRegister />} />
           <Route path="/admin-login" element={<AdminLogin />} />
-          <Route path="/orders" element={<div style={{ textAlign: 'center', padding: '100px 20px' }}><h2>Orders Listing Page (Coming Soon)</h2></div>} />
-          <Route path="/create-order" element={<div style={{ textAlign: 'center', padding: '100px 20px' }}><h2>Create Order Page (Coming Soon)</h2></div>} />
-          <Route path="/dashboard" element={<div style={{ textAlign: 'center', padding: '100px 20px' }}><h2>Dashboard Page (Coming Soon)</h2></div>} />
-          <Route path="/profile" element={<div style={{ textAlign: 'center', padding: '100px 20px' }}><h2>Profile Page (Coming Soon)</h2></div>} />
+          <Route path="/dashboard" element={<AdminDashboard />} />
+          <Route path="/create-order" element={<CreateOrder />} />
+          <Route path="/orders" element={<OrderList />} />
+          <Route path="/order/:id" element={<OrderDetails />} />
         </Routes>
       </MainLayout>
     </Router>

@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Login.css';
 
 export default function AdminLogin() {
   const [formData, setFormData] = useState({
-    username: '',
+    email: '',
     password: '',
   });
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -16,10 +19,32 @@ export default function AdminLogin() {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Placeholder for API integration
-    console.log('Admin login payload:', formData);
+    setError('');
+    setLoading(true);
+
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/admin-login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Login failed');
+      }
+
+      navigate('/dashboard');
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -29,15 +54,17 @@ export default function AdminLogin() {
         <h1>Admin Login</h1>
         <p className="login-subtitle">Manage orders, update statuses, and monitor operations.</p>
 
+        {error && <div className="alert alert-danger" style={{ color: '#d9534f', textAlign: 'center', marginBottom: '15px' }}>{error}</div>}
+
         <form className="login-form" onSubmit={handleSubmit}>
-          <label htmlFor="admin-username">Admin Username</label>
+          <label htmlFor="admin-email">Admin Email</label>
           <input
-            id="admin-username"
-            type="text"
-            name="username"
-            value={formData.username}
+            id="admin-email"
+            type="email"
+            name="email"
+            value={formData.email}
             onChange={handleChange}
-            placeholder="admin.username"
+            placeholder="admin@example.com"
             required
           />
 
@@ -52,7 +79,9 @@ export default function AdminLogin() {
             required
           />
 
-          <button className="login-btn" type="submit">Access Admin Panel</button>
+          <button className="login-btn" type="submit" disabled={loading}>
+            {loading ? 'Logging in...' : 'Access Admin Panel'}
+          </button>
         </form>
 
         <p className="login-switch">

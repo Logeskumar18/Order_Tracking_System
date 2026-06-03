@@ -1,51 +1,33 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
 
-const userSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: [true, 'Name is required'],
-      trim: true,
-    },
-    email: {
-      type: String,
-      required: [true, 'Email is required'],
-      unique: true,
-      lowercase: true,
-      trim: true,
-    },
-    password: {
-      type: String,
-      required: [true, 'Password is required'],
-      minlength: 6,
-      select: false,
-    },
-    phone: {
-      type: String,
-      trim: true,
-    },
-    address: {
-      type: String,
-      trim: true,
-    },
-    role: {
-      type: String,
-      enum: ['user'],
-      default: 'user',
-    },
-    isActive: {
-      type: Boolean,
-      default: true,
-    },
+const userSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
   },
-  {
-    timestamps: true,
-  }
-);
-
-userSchema.methods.matchPassword = async function matchPassword(enteredPassword) {
-  return bcrypt.compare(enteredPassword, this.password);
-};
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    lowercase: true,
+    trim: true,
+  },
+  password: {
+    type: String,
+    required: true,
+    select: false, // Ensures the password isn't returned in queries by default
+  },
+  role: {
+    type: String,
+    enum: ['Customer', 'Admin'],
+    default: 'Customer',
+  },
+  // Extra fields used by the existing authController
+  phone: { type: String, trim: true },
+  address: { type: String, trim: true },
+  isActive: { type: Boolean, default: true },
+}, { 
+  timestamps: true // Automatically manages createdAt and updatedAt
+});
 
 module.exports = mongoose.model('User', userSchema);

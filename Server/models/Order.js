@@ -1,97 +1,42 @@
 const mongoose = require('mongoose');
 
-const timelineEntrySchema = new mongoose.Schema(
-  {
-    status: {
-      type: String,
-      required: true,
-    },
-    note: {
-      type: String,
-      trim: true,
-    },
-    updatedBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Admin',
-    },
-    updatedAt: {
-      type: Date,
-      default: Date.now,
-    },
-  },
-  { _id: false }
-);
+const orderStatusValues = [
+  'Pending',
+  'Confirmed',
+  'Processing',
+  'Shipped',
+  'Out for Delivery',
+  'Delivered',
+  'Cancelled'
+];
 
-const orderItemSchema = new mongoose.Schema(
-  {
-    product: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Product',
-      required: true,
-    },
-    quantity: {
-      type: Number,
-      required: true,
-      min: 1,
-    },
-    price: {
-      type: Number,
-      required: true,
-      min: 0,
-    },
+// Represents the Order Status History Table (Embedded)
+const orderStatusHistorySchema = new mongoose.Schema({
+  status: {
+    type: String,
+    enum: orderStatusValues,
+    required: true,
   },
-  { _id: false }
-);
-
-const orderSchema = new mongoose.Schema(
-  {
-    orderNumber: {
-      type: String,
-      required: [true, 'Order number is required'],
-      unique: true,
-      trim: true,
-    },
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      required: true,
-    },
-    items: {
-      type: [orderItemSchema],
-      required: true,
-      validate: [(value) => value.length > 0, 'At least one product is required'],
-    },
-    status: {
-      type: String,
-      enum: ['pending', 'confirmed', 'processing', 'shipped', 'delivered', 'cancelled'],
-      default: 'pending',
-    },
-    timeline: {
-      type: [timelineEntrySchema],
-      default: [],
-    },
-    shippingAddress: {
-      type: String,
-      required: [true, 'Shipping address is required'],
-      trim: true,
-    },
-    contactPhone: {
-      type: String,
-      trim: true,
-    },
-    totalAmount: {
-      type: Number,
-      required: true,
-      min: 0,
-    },
-    notes: {
-      type: String,
-      trim: true,
-    },
-  },
-  {
-    timestamps: true,
+  remarks: {
+    type: String,
+    trim: true,
   }
-);
+}, { timestamps: { createdAt: true, updatedAt: false } }); // Only created_at is needed
+
+const orderSchema = new mongoose.Schema({
+  order_number: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  customer_name: { type: String, required: true },
+  customer_email: { type: String, required: true, lowercase: true },
+  status: { type: String, enum: orderStatusValues, default: 'Pending' },
+  
+  // In MongoDB, we embed the history directly in the order document
+  order_status_history: [orderStatusHistorySchema]
+}, { 
+  timestamps: true 
+});
 
 module.exports = mongoose.model('Order', orderSchema);

@@ -9,7 +9,7 @@ export default function UserLogin() {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    rememberMe: false,
+   
   });
   const [status, setStatus] = useState({ type: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -48,9 +48,7 @@ export default function UserLogin() {
         throw new Error(data.message || 'Login failed.');
       }
 
-      if (formData.rememberMe) {
-        localStorage.setItem('orderTrackingUser', JSON.stringify(data.user));
-      }
+      localStorage.setItem('orderTrackingUser', JSON.stringify(data.user));
 
       navigate('/user-home', { replace: true });
     } catch (error) {
@@ -103,17 +101,7 @@ export default function UserLogin() {
           />
 
           <div className="login-row">
-            <label className="checkbox-wrap" htmlFor="remember-me">
-              <input
-                id="remember-me"
-                type="checkbox"
-                name="rememberMe"
-                checked={formData.rememberMe}
-                onChange={handleChange}
-              />
-              Remember me
-            </label>
-            <a href="#" className="helper-link">Forgot password?</a>
+          
           </div>
 
           <button className="login-btn" type="submit" disabled={isSubmitting}>
@@ -125,9 +113,7 @@ export default function UserLogin() {
           New customer? <Link to="/user-register">Create an account</Link>
         </p>
 
-        <p className="login-switch">
-          Admin account? <Link to="/admin-login">Go to Admin Login</Link>
-        </p>
+       
       </div>
     </section>
   );

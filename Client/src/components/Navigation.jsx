@@ -39,42 +39,10 @@ export default function Navigation() {
                 Home
               </Link>
             </li>
-            <li className="nav-item">
-              <Link
-                className={`nav-link ${isActive('/orders') ? 'active' : ''}`}
-                to="/orders"
-                onClick={() => setIsOpen(false)}
-              >
-                Orders
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                className={`nav-link ${isActive('/create-order') ? 'active' : ''}`}
-                to="/create-order"
-                onClick={() => setIsOpen(false)}
-              >
-                Create Order
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                className={`nav-link ${isActive('/dashboard') ? 'active' : ''}`}
-                to="/dashboard"
-                onClick={() => setIsOpen(false)}
-              >
-                Dashboard
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                className={`nav-link ${isActive('/profile') ? 'active' : ''}`}
-                to="/profile"
-                onClick={() => setIsOpen(false)}
-              >
-                Profile
-              </Link>
-            </li>
+           
+          
+           
+      
             <li className="nav-item">
               <Link
                 className={`nav-link ${isActive('/user-login') ? 'active' : ''}`}
@@ -84,24 +52,8 @@ export default function Navigation() {
                 User Login
               </Link>
             </li>
-            <li className="nav-item">
-              <Link
-                className={`nav-link ${isActive('/user-register') ? 'active' : ''}`}
-                to="/user-register"
-                onClick={() => setIsOpen(false)}
-              >
-                User Register
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                className={`nav-link ${isActive('/user-home') ? 'active' : ''}`}
-                to="/user-home"
-                onClick={() => setIsOpen(false)}
-              >
-                User Home
-              </Link>
-            </li>
+      
+         
             <li className="nav-item">
               <Link
                 className={`nav-link ${isActive('/admin-login') ? 'active' : ''}`}

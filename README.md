@@ -86,7 +86,7 @@ The application will be available at `http://localhost:5173`
 3. **Create a `.env` file:**
    ```
    PORT=5000
-   MONGODB_URI=mongodb://localhost:27017/order-tracking
+   MONGODB_URL=mongodb://localhost:27017/order-tracking
    ```
 
 4. **Start the server:**
