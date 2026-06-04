@@ -1,17 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { API_BASE_URL } from '../config/api';
 
 export default function OrderList() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get(`${API_BASE_URL}/api/orders`);
-        setOrders(response.data.data);
+        const storedUser = localStorage.getItem('orderTrackingUser');
+        if (!storedUser) {
+          navigate('/user-login');
+          return;
+        }
+        const user = JSON.parse(storedUser);
+
+        // Fetch all orders and filter to only show orders matching the user's email
+        const response = await axios.get(`${API_BASE_URL}/api/orders?limit=1000`);
+        const userOrders = response.data.data.filter(order => order.customer_email === user.email);
+        
+        setOrders(userOrders);
       } catch (error) {
         console.error('Error fetching orders:', error);
       } finally {
@@ -19,7 +30,7 @@ export default function OrderList() {
       }
     };
     fetchOrders();
-  }, []);
+  }, [navigate]);
 
   if (loading) return <div className="container mt-5 text-center">Loading Orders...</div>;
 

@@ -38,19 +38,7 @@ export default function UserHome() {
             <Link to="/orders" className="action-link">Open My Orders</Link>
           </article>
 
-          <article className="action-card">
-            <div className="action-icon">i</div>
-            <h2>View Order Details</h2>
-            <p>Open each order to inspect products, shipping info, payment, and status changes.</p>
-            <Link to="/orders" className="action-link">See Order Details</Link>
-          </article>
-
-          <article className="action-card">
-            <div className="action-icon">~</div>
-            <h2>Track Status Timeline</h2>
-            <p>Follow your order journey from creation to delivery in a clear timeline format.</p>
-            <Link to="/orders" className="action-link">Track Timeline</Link>
-          </article>
+          
         </div>
       </div>
     </section>

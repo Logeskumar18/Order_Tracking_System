@@ -15,14 +15,7 @@ export default function MainLayout({ children }) {
             <h5>Order Tracking System</h5>
             <p>Streamline your order management with real-time tracking and updates.</p>
           </div>
-          <div className="footer-section">
-            <h5>Quick Links</h5>
-            <ul>
-              <li><a href="/">Home</a></li>
-              <li><a href="/orders">Orders</a></li>
-              <li><a href="/dashboard">Dashboard</a></li>
-            </ul>
-          </div>
+          
           <div className="footer-section">
             <h5>Support</h5>
             <ul>

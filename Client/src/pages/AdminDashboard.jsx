@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/AdminDashboard.css';
 
 export default function AdminDashboard() {
@@ -11,6 +12,8 @@ export default function AdminDashboard() {
   
   // State to handle viewing order details
   const [viewingOrder, setViewingOrder] = useState(null);
+  
+  const navigate = useNavigate();
 
   const fetchStats = async () => {
     try {
@@ -67,6 +70,12 @@ export default function AdminDashboard() {
     } catch (error) {
       console.error('Failed to update status', error);
     }
+  };
+
+  const handleLogout = () => {
+    // Clear admin authentication data from local storage
+    localStorage.removeItem('adminToken'); // Adjust the key if you use a different one
+    navigate('/admin-login');
   };
 
   // ----------------------------------------------------
@@ -128,7 +137,10 @@ export default function AdminDashboard() {
   // ----------------------------------------------------
   return (
     <div className="admin-dashboard">
-      <h1>Admin Dashboard</h1>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h1>Admin Dashboard</h1>
+        <button onClick={handleLogout} style={{ padding: '8px 16px', background: '#dc3545', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>Logout</button>
+      </div>
       
       {/* 1. Dashboard Home (Summary Cards) */}
       <div className="stats-container">

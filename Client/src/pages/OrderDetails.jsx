@@ -17,8 +17,21 @@ export default function OrderDetails() {
   const fetchOrder = async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/api/orders/${id}`);
-      setOrder(response.data.data);
-      setStatusInput(response.data.data.status);
+      const fetchedOrder = response.data.data;
+      
+      // Security check: ensure the order belongs to the logged-in user
+      const storedUser = localStorage.getItem('orderTrackingUser');
+      if (storedUser) {
+        const user = JSON.parse(storedUser);
+        if (fetchedOrder.customer_email !== user.email) {
+          alert('You are not authorized to view this order.');
+          navigate('/orders');
+          return;
+        }
+      }
+
+      setOrder(fetchedOrder);
+      setStatusInput(fetchedOrder.status);
     } catch (error) {
       console.error('Error fetching order:', error);
       alert('Order not found');
